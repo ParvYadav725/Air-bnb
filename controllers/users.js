@@ -9,8 +9,8 @@ module.exports.renderLoginForm = (req,res) => {
 };
 
 
-
-module.exports.signup = async (req,res) => {
+//this line
+module.exports.signup = async (req,res,next) => {
    
     try{
 
@@ -18,7 +18,8 @@ module.exports.signup = async (req,res) => {
     const newUser = new User({email, username});
     const registeredUser = await User.register(newUser , password);
     console.log(registeredUser);
-    res.login(registeredUser, (err) => {
+    //this line
+    req.login(registeredUser, (err) => {
         if(err){
             return next(err);
         }
@@ -39,7 +40,8 @@ module.exports.login = async(req,res) => {
     };
 
     module.exports.logout = (req, res, next) => {
-    res.logout((err) => {
+    //this line
+        req.logout((err) => {
         if(err){
            return next(err);
         }
